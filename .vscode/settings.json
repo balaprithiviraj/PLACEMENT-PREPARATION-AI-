@@ -1,0 +1,13 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd \"c:\\\\Users\\\\acer\\\\Videos\\\\placement preparation ai\\\\backend\"; & \"C:/Users/acer/AppData/Local/Python/pythoncore-3\\.14-64/python\\.exe\" -m pip install -r requirements\\.txt$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^cd \"c:\\\\Users\\\\acer\\\\Videos\\\\placement preparation ai\\\\backend\"; & \"C:/Users/acer/AppData/Local/Python/pythoncore-3\\.14-64/python\\.exe\" -m uvicorn app\\.main:app --host 0\\.0\\.0\\.0 --port 5000$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    },
+    "python-envs.defaultEnvManager": "ms-python.python:system"
+}

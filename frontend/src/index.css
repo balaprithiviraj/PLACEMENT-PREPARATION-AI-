@@ -1,0 +1,390 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #6366f1;
+  --accent-2: #a855f7;
+  --bg-0: #020617;
+  --bg-1: #0f172a;
+}
+
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  color: #e2e8f0;
+  background:
+    radial-gradient(1100px 500px at 85% -5%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(900px 480px at 8% 8%, rgba(168, 85, 247, 0.12), transparent 60%),
+    radial-gradient(1000px 600px at 50% 110%, rgba(34, 211, 238, 0.07), transparent 60%),
+    linear-gradient(180deg, #020617 0%, #0b1128 55%, #0d1526 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.45);
+  color: #fff;
+}
+
+/* ---------- Typography helpers ---------- */
+.font-display {
+  font-family: 'Sora', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #fff 20%, #c7d2fe 55%, #67e8f9 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-brand {
+  background: linear-gradient(100deg, #a5b4fc, #c084fc 55%, #67e8f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.3rem 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c7d2fe;
+}
+
+/* ---------- Glass system ---------- */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+.glass-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.1rem;
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+/* top light streak — the "premium glass" highlight */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  pointer-events: none;
+}
+
+.glass-card-hover {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(129, 140, 248, 0.45);
+  box-shadow: 0 18px 48px -12px rgba(0, 0, 0, 0.6), 0 0 32px -8px rgba(99, 102, 241, 0.45);
+}
+
+/* gradient ring card (hero CTA / auth glow) */
+.ring-glow {
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.12), 0 0 64px -12px rgba(99, 102, 241, 0.5),
+    0 24px 64px -24px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.8rem;
+  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 60%, #6d28d9 100%);
+  background-size: 150% 150%;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.625rem 1.1rem;
+  font-size: 0.875rem;
+  box-shadow: 0 8px 24px -8px rgba(99, 102, 241, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.25s ease, filter 0.2s ease;
+  overflow: hidden;
+}
+
+/* shine sweep */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 12px 32px -8px rgba(99, 102, 241, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-primary:hover::after {
+  left: 130%;
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  color: #f1f5f9;
+  font-weight: 600;
+  padding: 0.625rem 1.1rem;
+  font-size: 0.875rem;
+  transition: transform 0.18s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.btn-ghost:active {
+  transform: scale(0.98);
+}
+
+/* ---------- Inputs ---------- */
+.glass-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(2, 6, 23, 0.5);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: #f1f5f9;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.glass-input::placeholder {
+  color: #475569;
+}
+
+.glass-input:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.glass-input:focus {
+  border-color: rgba(129, 140, 248, 0.7);
+  background: rgba(2, 6, 23, 0.7);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22), 0 0 20px -4px rgba(99, 102, 241, 0.4);
+}
+
+/* Preserve Tailwind icon padding utilities.
+   .glass-input uses a padding shorthand defined AFTER utilities,
+   so without these rules pl/pr utilities get overridden and left/right
+   icons overlap the input text. */
+.glass-input.pl-9 {
+  padding-left: 2.25rem;
+}
+.glass-input.pl-10 {
+  padding-left: 2.5rem;
+}
+.glass-input.pl-11 {
+  padding-left: 2.75rem;
+}
+.glass-input.pr-9 {
+  padding-right: 2.25rem;
+}
+.glass-input.pr-10 {
+  padding-right: 2.5rem;
+}
+.glass-input.pr-11 {
+  padding-right: 2.75rem;
+}
+.glass-input.pr-12 {
+  padding-right: 3rem;
+}
+
+label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* route-level entrance */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---------- Progress / shimmer ---------- */
+.bar-fill {
+  position: relative;
+  background: linear-gradient(90deg, #6366f1, #a855f7 60%, #22d3ee);
+  background-size: 200% 100%;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: gradient-pan 6s ease infinite;
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0.06) 30%, rgba(255, 255, 255, 0.14) 50%, rgba(255, 255, 255, 0.06) 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s linear infinite;
+}
+
+/* gradient spinner ring */
+.spinner-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, #6366f1, #a855f7, #22d3ee, transparent 75%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* nav link glow dot for active sidebar item */
+.nav-active-dot::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  width: 3px;
+  height: 60%;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #818cf8, #22d3ee);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.9);
+}
+
+/* Focus rings for a11y */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.4));
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.75), rgba(168, 85, 247, 0.6));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Respect users who prefer no motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    transition-duration: 0.001s !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

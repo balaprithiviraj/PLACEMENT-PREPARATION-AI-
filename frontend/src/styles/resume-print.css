@@ -1,0 +1,104 @@
+/* resume-print.css — A4 print rules for the Resume Studio download.
+   CONTRACT: the printable resume must live inside #resume-print-root.
+   Technique: hide everything except the print root via visibility. */
+
+/* Paged-media setup: A4 with ~10mm margins (top-level so all browsers honor it). */
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
+@media print {
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  /* Hide app chrome: everything except the print root. */
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-print-root,
+  #resume-print-root * {
+    visibility: visible;
+  }
+
+  /* Force exact color rendering so accent bars / pills print as designed. */
+  #resume-print-root,
+  #resume-print-root * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #resume-print-root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  #resume-print-root .resume-sheet {
+    max-width: 100% !important;
+    margin: 0 !important;
+    background: #fff !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* No shadows anywhere inside the printed resume. */
+  #resume-print-root .resume-sheet *,
+  #resume-print-root .shadow-2xl,
+  #resume-print-root .shadow-xl,
+  #resume-print-root .shadow-lg,
+  #resume-print-root .shadow {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Keep logical blocks together: sections try to stay whole, items never split. */
+  #resume-print-root .rt-section {
+    break-inside: avoid-page;
+  }
+
+  #resume-print-root .rt-avoid,
+  #resume-print-root li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Keep headings glued to the content that follows them. */
+  #resume-print-root .rt-heading,
+  #resume-print-root h1,
+  #resume-print-root h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  #resume-print-root p,
+  #resume-print-root li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Links print dark with no underline (no classic blue/purple link styling). */
+  #resume-print-root a,
+  #resume-print-root a:visited,
+  #resume-print-root a[href] {
+    color: #0f172a !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
+  /* Suppress any UA-injected link URL expansions. */
+  #resume-print-root a[href]::after {
+    content: none !important;
+  }
+}
