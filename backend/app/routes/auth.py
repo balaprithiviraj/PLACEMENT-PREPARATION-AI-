@@ -12,38 +12,27 @@ TOKEN_STORE: dict[str, str] = {}
 
 
 class RegisterRequest(BaseModel):
-    name: str = Field(min_length=2, max_length=120)
-    email: str = Field(min_length=3, max_length=200)
-    password: str = Field(min_length=6, max_length=128)
-    college: str = Field(min_length=2, max_length=200)
+    name: str = Field(max_length=120)
+    email: str = Field(max_length=200)
+    password: str = Field(max_length=128)
+    college: str | None = None
     degree: str | None = None
     department: str | None = None
     year: str | None = None
     phone: str | None = None
 
-    @field_validator("name", "college")
+    @field_validator("name", "email", "password", "college", "degree", "department", "year", "phone")
     @classmethod
-    def strip_required_strings(cls, value: str) -> str:
-        cleaned = value.strip()
-        if not cleaned:
-            raise ValueError("must not be blank")
-        return cleaned
+    def clean_strings(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        cleaned = str(value).strip()
+        return cleaned or None
 
     @field_validator("email")
     @classmethod
     def normalize_email(cls, value: str) -> str:
-        email = value.strip().lower()
-        if "@" not in email:
-            raise ValueError("email must be valid")
-        return email
-
-    @field_validator("degree", "department", "year", "phone")
-    @classmethod
-    def normalize_optional_strings(cls, value: str | None) -> str | None:
-        if value is None:
-            return None
-        cleaned = value.strip()
-        return cleaned or None
+        return str(value).strip().lower()
 
 
 class LoginRequest(BaseModel):
@@ -78,7 +67,7 @@ async def register_user(payload: RegisterRequest):
         "name": payload.name.strip(),
         "email": email,
         "passwordHash": _hash_password(payload.password),
-        "college": payload.college.strip(),
+        "college": payload.college.strip() if payload.college else None,
         "degree": payload.degree.strip() if payload.degree else None,
         "department": payload.department.strip() if payload.department else None,
         "year": payload.year.strip() if payload.year else None,

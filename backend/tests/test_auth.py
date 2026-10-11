@@ -43,3 +43,24 @@ def test_login_rejects_bad_password(client):
         json={"email": "a@example.com", "password": "wrong-pass"},
     )
     assert response.status_code == 401
+
+
+def test_simple_register_and_login_without_strict_validation(client):
+    payload = {
+        "name": "Simple User",
+        "email": "simpleuser",
+        "password": "123456",
+    }
+
+    response = client.post("/api/auth/register", json=payload)
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["token"]
+    assert body["user"]["email"] == "simpleuser"
+
+    login_response = client.post(
+        "/api/auth/login",
+        json={"email": "simpleuser", "password": "123456"},
+    )
+    assert login_response.status_code == 200, login_response.text
+    assert login_response.json()["user"]["email"] == "simpleuser"

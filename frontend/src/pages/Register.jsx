@@ -21,7 +21,7 @@ const fields = [
   { name: 'name', label: 'Full name', span: false, props: { required: true, autoComplete: 'name' } },
   { name: 'email', label: 'Email', span: false, props: { type: 'email', required: true, autoComplete: 'email' } },
   { name: 'password', label: 'Password', span: true, props: { type: 'password', required: true, autoComplete: 'new-password' } },
-  { name: 'college', label: 'College *', span: false, props: { required: true } },
+  { name: 'college', label: 'College', span: false, props: {} },
   { name: 'phone', label: 'Phone', span: false, props: { autoComplete: 'tel' } },
   { name: 'degree', label: 'Degree', span: false, props: { placeholder: 'B.E / B.Tech' } },
   { name: 'department', label: 'Department', span: false, props: { placeholder: 'CSE' } },
@@ -43,12 +43,12 @@ export default function Register() {
   async function onSubmit(e) {
     e.preventDefault();
     setError('');
-    if (!form.name || !form.email || !form.password || !form.college.trim()) {
-      setError('Name, email, password and college are required.');
+    if (!form.name || !form.email || !form.password) {
+      setError('Name, email and password are required.');
       return;
     }
-    if (form.password.length < 6) {
-      setError('Password must be at least 6 characters.');
+    if (form.password.length < 3) {
+      setError('Password must be at least 3 characters.');
       return;
     }
     setLoading(true);
